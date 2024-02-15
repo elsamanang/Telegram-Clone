@@ -5,6 +5,8 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="AdonisUI" Version="1.17.1" />
+    <PackageReference Include="AdonisUI.ClassicTheme" Version="1.17.1" />
     <PackageReference Include="Bogus" Version="35.4.0" />
     <PackageReference Include="Material.Icons.WPF" Version="2.1.0" />
     <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
