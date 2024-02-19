@@ -1,13 +1,21 @@
-﻿<Window
+﻿<adonis:AdonisWindow
     x:Class="Telegram_Clone.Views.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:adonis="clr-namespace:AdonisUI.Controls;assembly=AdonisUI"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:materialIcons="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
     xmlns:prism="http://prismlibrary.com/"
     prism:ViewModelLocator.AutoWireViewModel="True"
     Background="{DynamicResource Blue100}"
-    FontFamily="{DynamicResource MaterialDesignFont}">
+    FontFamily="{DynamicResource MaterialDesignFont}"
+    Foreground="{DynamicResource White200}"
+    IconVisibility="Collapsed"
+    TitleBarBackground="{DynamicResource Black300}"
+    TitleBarForeground="{DynamicResource White200}"
+    TitleVisibility="Collapsed"
+    WindowButtonHighlightBrush="{DynamicResource Blue100}">
     <Grid Background="{DynamicResource Black100}">
 
         <Grid.ColumnDefinitions>
@@ -16,7 +24,7 @@
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0" Background="{DynamicResource Black200}">
             <Grid.RowDefinitions>
-                <RowDefinition Height="50" />
+                <RowDefinition Height="46" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
@@ -34,7 +42,7 @@
                 <Border
                     Grid.Column="1"
                     Margin="2"
-                    Padding="5"
+                    Padding="3"
                     Background="{DynamicResource Black300}"
                     BorderThickness="0"
                     CornerRadius="20">
@@ -44,11 +52,13 @@
                             <ColumnDefinition Width="60" />
                         </Grid.ColumnDefinitions>
                         <TextBox
+                            x:Name="Search"
                             Grid.Column="0"
-                            Margin="8,0"
+                            VerticalAlignment="Center"
                             BorderBrush="Transparent"
                             BorderThickness="0"
                             Foreground="{DynamicResource White200}"
+                            Style="{StaticResource Search}"
                             Text="Search" />
                     </Grid>
                 </Border>
@@ -62,6 +72,11 @@
                     ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                     ScrollViewer.VerticalScrollBarVisibility="Auto"
                     SelectedValuePath="ViewPath">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding SelectCommand}" CommandParameter="{Binding ElementName=Menu, Path=SelectedItem}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid x:Name="Item" Style="{StaticResource Item}">
@@ -87,7 +102,7 @@
                                         FontSize="13"
                                         FontWeight="DemiBold"
                                         Foreground="{DynamicResource White100}"
-                                        Text="{Binding UserName}" />
+                                        Text="{Binding Name}" />
                                     <TextBlock
                                         Margin="10,8,0,0"
                                         VerticalAlignment="Center"
@@ -118,8 +133,22 @@
             </Grid>
         </Grid>
         <Grid Grid.Column="1">
-            <TextBlock Foreground="{DynamicResource White200}" Style="{DynamicResource MaterialDesignTitleTextBlock}">My app</TextBlock>
-
+            <Border
+                Grid.Column="2"
+                Margin="0,0,0,20"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Background="{DynamicResource Black300}"
+                CornerRadius="15">
+                <TextBlock
+                    Margin="10,5"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Foreground="{DynamicResource White100}"
+                    Text="Select a chat to start messaging" />
+            </Border>
+            <ContentControl prism:RegionManager.RegionContext="{Binding}" prism:RegionManager.RegionName="ConversationRegion" />
         </Grid>
     </Grid>
-</Window>
+</adonis:AdonisWindow>
