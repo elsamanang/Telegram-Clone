@@ -161,7 +161,7 @@
                             Margin="1"
                             FontSize="13"
                             Foreground="{DynamicResource White100}"
-                            Text="here your bio" />
+                            Text="{Binding Message.Bio}" />
                         <TextBlock
                             Margin="1"
                             FontSize="12"

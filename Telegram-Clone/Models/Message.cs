@@ -10,6 +10,7 @@ namespace TelegramClone.Models
     {
         public string Id { get; set; }
         public string Name { get; set; }
+        public string Bio { get; set; }
         public string UserName { get; set; }
         public string UserPicture { get; set; }
         public string Phone { get; set; }

@@ -132,10 +132,7 @@
                 </ListView>
             </Grid>
         </Grid>
-        <ContentControl
-            Grid.Column="1"
-            prism:RegionManager.RegionContext="{Binding}"
-            prism:RegionManager.RegionName="ConversationRegion">
+        <Grid Grid.Column="1">
             <Border
                 Grid.Column="2"
                 Margin="0,0,0,20"
@@ -151,6 +148,7 @@
                     Foreground="{DynamicResource White100}"
                     Text="Select a chat to start messaging" />
             </Border>
-        </ContentControl>
+            <ContentControl prism:RegionManager.RegionContext="{Binding}" prism:RegionManager.RegionName="ConversationRegion" />
+        </Grid>
     </Grid>
 </adonis:AdonisWindow>

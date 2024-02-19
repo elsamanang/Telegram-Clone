@@ -19,7 +19,7 @@ namespace TelegramClone
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            
+            throw new NotImplementedException();
         }
     }
 }
