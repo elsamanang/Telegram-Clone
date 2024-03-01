@@ -3,11 +3,13 @@ using Prism.Mvvm;
 using Prism.Regions;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using TelegramClone.Models;
+using TelegramClone.Utils;
 
 namespace TelegramClone.ViewModels
 {
@@ -17,13 +19,22 @@ namespace TelegramClone.ViewModels
         private int _share;
         private int _voice;
         private int _profilTab;
+        private ObservableCollection<MessageItem> _messageItems;
 
         public HomeViewModel()
         {
             CloseCommand = new(CloseTab);
+            var data = MockGenerator.GenerateMessageItems(20);
+            _messageItems = new ObservableCollection<MessageItem>(data.OrderBy(m => m.Heure));
         }
 
         public DelegateCommand CloseCommand { get; set; }
+
+        public ObservableCollection<MessageItem> MessageItems
+        {
+            get => _messageItems;
+            set => SetProperty(ref _messageItems, value);
+        }
 
         public Message Message
         {

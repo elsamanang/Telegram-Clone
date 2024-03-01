@@ -151,6 +151,5 @@
                 <ContentControl prism:RegionManager.RegionContext="{Binding}" prism:RegionManager.RegionName="ConversationRegion" />
             </Grid>
         </Grid>
-        <Grid Background="Transparent" />
     </Grid>
 </adonis:AdonisWindow>
