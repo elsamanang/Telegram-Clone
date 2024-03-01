@@ -20,15 +20,17 @@ namespace TelegramClone.ViewModels
         private int _voice;
         private int _profilTab;
         private ObservableCollection<MessageItem> _messageItems;
+        public DelegateCommand CloseCommand { get; set; }
+        public DelegateCommand<string> HandleChangeCommand { get; set; }
 
         public HomeViewModel()
         {
             CloseCommand = new(CloseTab);
-            var data = MockGenerator.GenerateMessageItems(20);
+            HandleChangeCommand = new(OnChange);
+            var data = MockGenerator.GenerateMessageItems(15);
             _messageItems = new ObservableCollection<MessageItem>(data.OrderBy(m => m.Heure));
         }
 
-        public DelegateCommand CloseCommand { get; set; }
 
         public ObservableCollection<MessageItem> MessageItems
         {
@@ -63,6 +65,13 @@ namespace TelegramClone.ViewModels
         {
             ProfilTab = 0;
         }
+
+        public void OnChange(string msg)
+        {
+            var actualTime = DateTime.Now.ToString("HH:mm");
+            var newMessage = new MessageItem { Heure = actualTime, Message= msg, Orientation= "Right" };
+            MessageItems.Add(newMessage);
+        } 
         public bool IsNavigationTarget(NavigationContext navigationContext)
         {
             return true;

@@ -2,6 +2,7 @@
     x:Class="TelegramClone.Views.Home"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:adonisExtension="clr-namespace:AdonisUI.Extensions;assembly=AdonisUI"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:TelegramClone.Views"
@@ -78,8 +79,16 @@
                         Kind="DotsVertical" />
                 </StackPanel>
             </Grid>
-            <StackPanel Grid.Row="1" Background="Transparent">
-                <ItemsControl ItemsSource="{Binding MessageItems}">
+            <ScrollViewer
+                Grid.Row="1"
+                Background="{DynamicResource Black100}"
+                ScrollViewer.CanContentScroll="True">
+                <ItemsControl
+                    Padding="0,10"
+                    ItemsSource="{Binding MessageItems}"
+                    ScrollViewer.CanContentScroll="True"
+                    ScrollViewer.IsDeferredScrollingEnabled="True"
+                    ScrollViewer.PanningMode="VerticalOnly">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border
@@ -105,7 +114,7 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-            </StackPanel>
+            </ScrollViewer>
             <Grid
                 Grid.Row="2"
                 Margin="1,0"
@@ -125,12 +134,20 @@
                     Foreground="{DynamicResource White200}"
                     Kind="Paperclip" />
                 <TextBox
+                    Name="MyMessage"
                     Grid.Column="1"
                     Padding="1"
                     VerticalAlignment="Center"
                     Foreground="{DynamicResource White200}"
                     Style="{StaticResource Search}"
-                    Text="Write a message" />
+                    Text="Write a message">
+                    <TextBox.InputBindings>
+                        <KeyBinding
+                            Key="Return"
+                            Command="{Binding HandleChangeCommand}"
+                            CommandParameter="{Binding ElementName=MyMessage, Path=Text}" />
+                    </TextBox.InputBindings>
+                </TextBox>
                 <materialIcons:MaterialIcon
                     Grid.Column="2"
                     Height="28"
