@@ -79,42 +79,42 @@
                         Kind="DotsVertical" />
                 </StackPanel>
             </Grid>
-            <ScrollViewer
-                Grid.Row="1"
-                Background="{DynamicResource Black100}"
-                ScrollViewer.CanContentScroll="True">
-                <ItemsControl
-                    Padding="0,10"
-                    ItemsSource="{Binding MessageItems}"
-                    ScrollViewer.CanContentScroll="True"
-                    ScrollViewer.IsDeferredScrollingEnabled="True"
-                    ScrollViewer.PanningMode="VerticalOnly">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Border
-                                Width="auto"
-                                Margin="12,1"
-                                HorizontalAlignment="{Binding Orientation}"
-                                Background="{DynamicResource Black200}"
-                                CornerRadius="8">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock
-                                        Margin="8,6,8,0"
-                                        FontSize="12"
-                                        Foreground="{DynamicResource White100}"
-                                        Text="{Binding Message}" />
-                                    <TextBlock
-                                        Margin="8,12,8,6"
-                                        HorizontalAlignment="Right"
-                                        FontSize="10"
-                                        Foreground="{DynamicResource White200}"
-                                        Text="{Binding Heure}" />
-                                </StackPanel>
-                            </Border>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </ScrollViewer>
+            <Grid Grid.Row="1" Background="{DynamicResource Black100}">
+                <Image Source="/Utils/Images/p1.png" Stretch="Fill" />
+                <ScrollViewer ScrollViewer.CanContentScroll="True">
+                    <ItemsControl
+                        Padding="0,10"
+                        ItemsSource="{Binding MessageItems}"
+                        ScrollViewer.CanContentScroll="True"
+                        ScrollViewer.IsDeferredScrollingEnabled="True"
+                        ScrollViewer.PanningMode="VerticalOnly">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border
+                                    Width="auto"
+                                    Margin="12,1"
+                                    HorizontalAlignment="{Binding Orientation}"
+                                    Background="{DynamicResource Black200}"
+                                    CornerRadius="8">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock
+                                            Margin="8,6,8,0"
+                                            FontSize="12"
+                                            Foreground="{DynamicResource White100}"
+                                            Text="{Binding Message}" />
+                                        <TextBlock
+                                            Margin="8,12,8,6"
+                                            HorizontalAlignment="Right"
+                                            FontSize="10"
+                                            Foreground="{DynamicResource White200}"
+                                            Text="{Binding Heure}" />
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Grid>
             <Grid
                 Grid.Row="2"
                 Margin="1,0"
@@ -138,9 +138,13 @@
                     Grid.Column="1"
                     Padding="1"
                     VerticalAlignment="Center"
-                    Foreground="{DynamicResource White200}"
                     Style="{StaticResource Search}"
-                    Text="Write a message">
+                    Text="{Binding Placeholder}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseEnter">
+                            <i:InvokeCommandAction Command="{Binding HandleWriteCommand}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                     <TextBox.InputBindings>
                         <KeyBinding
                             Key="Return"
@@ -306,7 +310,8 @@
                             Margin="2,20,15,20"
                             Background="{DynamicResource Blue300}"
                             BorderBrush="{DynamicResource Blue300}"
-                            Foreground="{DynamicResource Blue300}" />
+                            Foreground="{DynamicResource Blue300}"
+                            IsChecked="True" />
                     </Grid>
                 </StackPanel>
             </Grid>
