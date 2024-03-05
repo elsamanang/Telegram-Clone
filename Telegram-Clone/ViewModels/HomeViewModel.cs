@@ -19,18 +19,31 @@ namespace TelegramClone.ViewModels
         private int _share;
         private int _voice;
         private int _profilTab;
+        private string _placeholder;
         private ObservableCollection<MessageItem> _messageItems;
         public DelegateCommand CloseCommand { get; set; }
+        public DelegateCommand HandleWriteCommand { get; set; }
         public DelegateCommand<string> HandleChangeCommand { get; set; }
 
         public HomeViewModel()
         {
             CloseCommand = new(CloseTab);
             HandleChangeCommand = new(OnChange);
+            HandleWriteCommand = new(OnWrite);
             var data = MockGenerator.GenerateMessageItems(15);
             _messageItems = new ObservableCollection<MessageItem>(data.OrderBy(m => m.Heure));
         }
 
+        private void OnWrite()
+        {
+            Placeholder = "";
+        }
+
+        public string Placeholder
+        {
+            get => _placeholder;
+            set => SetProperty(ref _placeholder, value);
+        }
 
         public ObservableCollection<MessageItem> MessageItems
         {
@@ -71,6 +84,7 @@ namespace TelegramClone.ViewModels
             var actualTime = DateTime.Now.ToString("HH:mm");
             var newMessage = new MessageItem { Heure = actualTime, Message= msg, Orientation= "Right" };
             MessageItems.Add(newMessage);
+            Placeholder = "Write a message";
         } 
         public bool IsNavigationTarget(NavigationContext navigationContext)
         {
@@ -86,8 +100,11 @@ namespace TelegramClone.ViewModels
         {
             Share = Random.Shared.Next(1, 20);
             Voice = Random.Shared.Next(1, 20);
+            Placeholder = "Write a message";
             ProfilTab = 300;
             Message = (Message)navigationContext.Parameters["myUser"];
+            var data = MockGenerator.GenerateMessageItems(15);
+            MessageItems = new ObservableCollection<MessageItem>(data.OrderBy(m => m.Heure));
         }
     }
 }
