@@ -1,15 +1,19 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
+using Prism.Services.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
+using TelegramClone.Components.Views;
 using TelegramClone.Models;
 using TelegramClone.Utils;
+using TelegramClone.Views;
 
 namespace TelegramClone.ViewModels
 {
@@ -20,24 +24,9 @@ namespace TelegramClone.ViewModels
         private int _voice;
         private int _profilTab;
         private string _placeholder;
+        private readonly IDialogService dialogService;
+
         private ObservableCollection<MessageItem> _messageItems;
-        public DelegateCommand CloseCommand { get; set; }
-        public DelegateCommand HandleWriteCommand { get; set; }
-        public DelegateCommand<string> HandleChangeCommand { get; set; }
-
-        public HomeViewModel()
-        {
-            CloseCommand = new(CloseTab);
-            HandleChangeCommand = new(OnChange);
-            HandleWriteCommand = new(OnWrite);
-            var data = MockGenerator.GenerateMessageItems(15);
-            _messageItems = new ObservableCollection<MessageItem>(data.OrderBy(m => m.Heure));
-        }
-
-        private void OnWrite()
-        {
-            Placeholder = "";
-        }
 
         public string Placeholder
         {
@@ -74,6 +63,35 @@ namespace TelegramClone.ViewModels
             set => SetProperty(ref _voice, value);
         }
 
+        public DelegateCommand CloseCommand { get; set; }
+        public DelegateCommand CallCommand { get; set; }
+        public DelegateCommand HandleWriteCommand { get; set; }
+        public DelegateCommand<string> HandleChangeCommand { get; set; }
+
+        public HomeViewModel(IDialogService dialogService)
+        {
+            this.dialogService = dialogService;
+            CloseCommand = new(CloseTab);
+            CallCommand = new(OnCall);
+            HandleChangeCommand = new(OnChange);
+            HandleWriteCommand = new(OnWrite);
+            var data = MockGenerator.GenerateMessageItems(15);
+            _messageItems = new ObservableCollection<MessageItem>(data.OrderBy(m => m.Heure));
+        }
+
+        private void OnCall()
+        {
+            var userSerialize = JsonSerializer.Serialize(Message);
+            var param = new DialogParameters($"{nameof(Message)}={userSerialize}");
+            dialogService.Show(nameof(CallViewDialog), param,null, nameof(CallDialog));
+        }
+
+        private void OnWrite()
+        {
+            Placeholder = "";
+        }
+
+        
         public void CloseTab()
         {
             ProfilTab = 0;
