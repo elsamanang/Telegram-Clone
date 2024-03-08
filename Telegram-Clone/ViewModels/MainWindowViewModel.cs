@@ -5,6 +5,8 @@ using Prism.Regions;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media.Animation;
 using TelegramClone.Models;
 using TelegramClone.Utils;
 using TelegramClone.Views;
@@ -14,23 +16,14 @@ namespace Telegram_Clone.ViewModels
     public class MainWindowViewModel : BindableBase
     {
         private string _title = "Prism Application";
-        private string _sideBar = "auto";
         private ObservableCollection<Message> _messages;
         private readonly IRegionManager _regionManager;
 
         public DelegateCommand<Message> NavigateCommand { get; private set; }
-        public DelegateCommand CloseCommand { get; set; }
-        public DelegateCommand OpenCommand { get; set; }
         public string Title
         {
             get { return _title; }
             set { SetProperty(ref _title, value); }
-        }
-
-        public string SideBar
-        {
-            get => _sideBar;
-            set => SetProperty(ref _sideBar, value);
         }
 
         public DelegateCommand<Message> SelectCommand { get; set; }
@@ -41,13 +34,6 @@ namespace Telegram_Clone.ViewModels
             var data = MockGenerator.GenerateMessages(15);
             _messages = new ObservableCollection<Message>(data);
             SelectCommand = new(SelectionChanged);
-            CloseCommand = new(OnClose);
-        }
-
-        private void OnClose()
-        {
-            MessageBox.Show("fermer");
-            //SideBar = "0";
         }
 
         private void SelectionChanged(Message message)

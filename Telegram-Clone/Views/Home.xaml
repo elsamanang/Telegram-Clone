@@ -185,19 +185,20 @@
                     FontSize="14"
                     Foreground="{DynamicResource White100}"
                     Text="User Info" />
-                <materialIcons:MaterialIcon
+                <Button
                     Grid.Column="1"
-                    Height="35"
+                    Width="auto"
                     Margin="20,14"
-                    HorizontalAlignment="Center"
-                    Foreground="{DynamicResource White200}"
-                    Kind="Close">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="MouseDown">
-                            <i:InvokeCommandAction Command="{Binding CloseCommand}" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </materialIcons:MaterialIcon>
+                    Padding="0"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Command="{Binding CloseCommand}">
+                    <materialIcons:MaterialIcon
+                        Height="35"
+                        HorizontalAlignment="Center"
+                        Foreground="{DynamicResource White200}"
+                        Kind="Close" />
+                </Button>
             </Grid>
             <Grid>
                 <Grid.ColumnDefinitions>
