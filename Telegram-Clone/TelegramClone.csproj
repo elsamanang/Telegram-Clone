@@ -5,6 +5,10 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Utils\Images\p1.png" />
+    <None Remove="Utils\Images\p1.svg" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="AdonisUI" Version="1.17.1" />
     <PackageReference Include="AdonisUI.ClassicTheme" Version="1.17.1" />
     <PackageReference Include="Bogus" Version="35.4.0" />
@@ -13,7 +17,6 @@
     <PackageReference Include="Prism.DryIoc" Version="8.1.97" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Components\" />
-    <Folder Include="Utils\Images\" />
+    <Resource Include="Utils\Images\p1.png" />
   </ItemGroup>
 </Project>

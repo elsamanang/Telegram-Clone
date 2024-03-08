@@ -5,6 +5,8 @@ using Prism.Regions;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media.Animation;
 using TelegramClone.Models;
 using TelegramClone.Utils;
 using TelegramClone.Views;

@@ -1,6 +1,9 @@
 ﻿using Prism.Ioc;
 using System.Windows;
 using Telegram_Clone.Views;
+using TelegramClone.Components.ViewModels;
+using TelegramClone.Components.Views;
+using TelegramClone.Views;
 
 namespace Telegram_Clone
 {
@@ -16,7 +19,8 @@ namespace Telegram_Clone
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-
+            containerRegistry.RegisterDialog<CallViewDialog, CallViewDialogViewModel>(nameof(CallViewDialog));
+            containerRegistry.RegisterDialogWindow<CallDialog>(nameof(CallDialog));
         }
     }
 }

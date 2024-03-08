@@ -9,6 +9,7 @@
     xmlns:prism="http://prismlibrary.com/"
     prism:ViewModelLocator.AutoWireViewModel="True"
     Background="{DynamicResource Blue100}"
+    BorderThickness="0"
     FontFamily="{DynamicResource MaterialDesignFont}"
     Foreground="{DynamicResource White200}"
     IconVisibility="Collapsed"
@@ -17,139 +18,350 @@
     TitleVisibility="Collapsed"
     WindowButtonHighlightBrush="{DynamicResource Blue100}">
     <Grid Background="{DynamicResource Black100}">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="385" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0" Background="{DynamicResource Black200}">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="46" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0" Margin="10,8,10,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="40" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <materialIcons:MaterialIcon
-                        Height="25"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Foreground="{DynamicResource White200}"
-                        Kind="Menu" />
+        <materialDesign:DrawerHost
+            x:Name="DrawerHost"
+            BorderBrush="Transparent"
+            BorderThickness="0"
+            BottomDrawerBackground="{DynamicResource Black200}">
+            <materialDesign:DrawerHost.Style>
+                <Style BasedOn="{StaticResource {x:Type materialDesign:DrawerHost}}" TargetType="materialDesign:DrawerHost">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsChecked, ElementName=BackgroundToggle}" Value="True">
+                            <Setter Property="OverlayBackground" Value="{DynamicResource Black300}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </materialDesign:DrawerHost.Style>
+            <materialDesign:DrawerHost.LeftDrawerContent>
+                <Grid
+                    x:Name="Sbar"
+                    Width="265"
+                    Background="{DynamicResource Black200}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="60" />
+                    </Grid.RowDefinitions>
                     <Border
-                        Grid.Column="1"
-                        Margin="2"
-                        Padding="3"
-                        Background="{DynamicResource Black300}"
-                        BorderThickness="0"
-                        CornerRadius="20">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="60" />
-                            </Grid.ColumnDefinitions>
-                            <TextBox
-                                x:Name="Search"
-                                Grid.Column="0"
-                                VerticalAlignment="Center"
+                        Grid.Row="0"
+                        BorderBrush="{DynamicResource Black100}"
+                        BorderThickness="0,0,0,0.8">
+                        <StackPanel Margin="0,20,0,10">
+                            <Border
+                                Width="46"
+                                Margin="25,0"
+                                HorizontalAlignment="Left"
+                                Background="{DynamicResource Blue300}"
                                 BorderBrush="Transparent"
-                                BorderThickness="0"
-                                Foreground="{DynamicResource White200}"
-                                Style="{StaticResource Search}"
-                                Text="Search" />
-                        </Grid>
-                    </Border>
-                </Grid>
-                <Grid Grid.Row="2" Margin="10,8,0,8">
-                    <ListView
-                        x:Name="Menu"
-                        Grid.Row="1"
-                        ItemContainerStyle="{StaticResource Menu}"
-                        ItemsSource="{Binding Messages}"
-                        ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                        ScrollViewer.VerticalScrollBarVisibility="Auto"
-                        SelectedValuePath="ViewPath">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="SelectionChanged">
-                                <i:InvokeCommandAction Command="{Binding SelectCommand}" CommandParameter="{Binding ElementName=Menu, Path=SelectedItem}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <Grid x:Name="Item" Style="{StaticResource Item}">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="45" />
-                                        <ColumnDefinition Width="270" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <Ellipse
-                                        Width="43"
-                                        Height="43"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center">
-                                        <Ellipse.Fill>
-                                            <ImageBrush ImageSource="{Binding UserPicture}" Stretch="Fill" />
-                                        </Ellipse.Fill>
-                                    </Ellipse>
-                                    <StackPanel Grid.Column="1">
+                                CornerRadius="25">
+                                <TextBlock
+                                    Margin="13.5"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontSize="18"
+                                    Foreground="{DynamicResource White100}"
+                                    Text="EE" />
+                            </Border>
+                            <TextBlock
+                                Margin="25,15,25,2"
+                                VerticalAlignment="Center"
+                                FontSize="11"
+                                Foreground="{DynamicResource White100}"
+                                Text="elsa @myUser" />
+                            <Expander
+                                Margin="0,-13"
+                                HorizontalAlignment="Left"
+                                Background="Transparent"
+                                ExpandDirection="Down"
+                                IsExpanded="True">
+                                <Expander.Header>
+                                    <TextBlock
+                                        Margin="0,0,90,0"
+                                        HorizontalAlignment="Left"
+                                        FontSize="12"
+                                        Foreground="{DynamicResource Blue300}"
+                                        Text="Set Emoji Status" />
+                                </Expander.Header>
+                                <Border
+                                    Margin="-25,0,-90,5"
+                                    BorderBrush="{DynamicResource Black100}"
+                                    BorderThickness="0,0.8,0,0">
+                                    <StackPanel
+                                        Margin="48,15"
+                                        HorizontalAlignment="Left"
+                                        Orientation="Horizontal">
+                                        <Border
+                                            Width="20"
+                                            Height="19"
+                                            Background="{DynamicResource Blue200}"
+                                            BorderBrush="Transparent"
+                                            CornerRadius="12">
+                                            <materialIcons:MaterialIcon
+                                                Grid.Column="1"
+                                                Height="18"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                FontWeight="ExtraBold"
+                                                Foreground="{DynamicResource White100}"
+                                                Kind="Plus" />
+                                        </Border>
                                         <TextBlock
-                                            Margin="10,0,0,0"
-                                            VerticalAlignment="Center"
-                                            FontFamily="Fonts/Roboto-Regular.ttf #Roboto Regular"
-                                            FontSize="13"
-                                            FontWeight="DemiBold"
+                                            Margin="18,5"
                                             Foreground="{DynamicResource White100}"
-                                            Text="{Binding Name}" />
-                                        <TextBlock
-                                            Margin="10,8,0,0"
-                                            VerticalAlignment="Center"
-                                            FontFamily="Fonts/Roboto-Regular.ttf #Roboto Regular"
-                                            FontSize="12"
-                                            FontWeight="Normal"
-                                            Foreground="{DynamicResource White200}"
-                                            Text="{Binding Content}" />
-
+                                            Text="Add Account" />
                                     </StackPanel>
-                                    <Border
-                                        Grid.Column="2"
-                                        Width="20"
-                                        Margin="5,18,10,8"
-                                        Background="{DynamicResource Black400}"
-                                        CornerRadius="15">
-                                        <TextBlock
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            FontSize="10"
-                                            Foreground="{DynamicResource White100}"
-                                            Text="2" />
-                                    </Border>
-                                </Grid>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
+                                </Border>
+                            </Expander>
+                        </StackPanel>
+                    </Border>
+                    <StackPanel Grid.Row="1" Margin="20,0">
+                        <StackPanel Margin="0,10" Orientation="Horizontal">
+                            <materialIcons:MaterialIcon
+                                Grid.Column="1"
+                                Height="23"
+                                Foreground="{DynamicResource White100}"
+                                Kind="AccountMultipleOutline" />
+                            <TextBlock
+                                Margin="15,5"
+                                Foreground="{DynamicResource White100}"
+                                Text="New Group" />
+                        </StackPanel>
+                        <StackPanel Margin="0,10" Orientation="Horizontal">
+                            <materialIcons:MaterialIcon
+                                Grid.Column="1"
+                                Height="23"
+                                Foreground="{DynamicResource White100}"
+                                Kind="BullhornOutline" />
+                            <TextBlock
+                                Margin="15,5"
+                                Foreground="{DynamicResource White100}"
+                                Text="New Chanel" />
+                        </StackPanel>
+                        <StackPanel Margin="0,10" Orientation="Horizontal">
+                            <materialIcons:MaterialIcon
+                                Grid.Column="1"
+                                Height="23"
+                                Foreground="{DynamicResource White100}"
+                                Kind="UserCircleOutline" />
+                            <TextBlock
+                                Margin="15,5"
+                                Foreground="{DynamicResource White100}"
+                                Text="Contacts" />
+                        </StackPanel>
+                        <StackPanel Margin="0,10" Orientation="Horizontal">
+                            <materialIcons:MaterialIcon
+                                Grid.Column="1"
+                                Height="23"
+                                Foreground="{DynamicResource White100}"
+                                Kind="PhoneOutline" />
+                            <TextBlock
+                                Margin="15,5"
+                                Foreground="{DynamicResource White100}"
+                                Text="Calls" />
+                        </StackPanel>
+                        <StackPanel Margin="0,10" Orientation="Horizontal">
+                            <materialIcons:MaterialIcon
+                                Grid.Column="1"
+                                Height="23"
+                                Foreground="{DynamicResource White100}"
+                                Kind="BookMarkOutline" />
+                            <TextBlock
+                                Margin="15,5"
+                                Foreground="{DynamicResource White100}"
+                                Text="Save Message" />
+                        </StackPanel>
+                        <StackPanel Margin="0,10" Orientation="Horizontal">
+                            <materialIcons:MaterialIcon
+                                Grid.Column="1"
+                                Height="23"
+                                Foreground="{DynamicResource White100}"
+                                Kind="CogOutline" />
+                            <TextBlock
+                                Margin="15,5"
+                                Foreground="{DynamicResource White100}"
+                                Text="Settings" />
+                        </StackPanel>
+                        <StackPanel Margin="0,10" Orientation="Horizontal">
+                            <materialIcons:MaterialIcon
+                                Grid.Column="1"
+                                Height="23"
+                                Foreground="{DynamicResource White100}"
+                                Kind="MoonWaningCrescent" />
+                            <TextBlock
+                                Margin="15,5"
+                                Foreground="{DynamicResource White100}"
+                                Text="Night Mode" />
+                            <ToggleButton
+                                x:Name="SwitchBox"
+                                Grid.Column="1"
+                                Margin="80,5,-10,5"
+                                Background="{DynamicResource Blue300}"
+                                BorderBrush="{DynamicResource Blue300}"
+                                Foreground="{DynamicResource Blue300}"
+                                IsChecked="True" />
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Grid.Row="2" Margin="25,5">
+                        <TextBlock
+                            Margin="0,2"
+                            FontSize="13"
+                            Foreground="{DynamicResource White100}"
+                            Opacity="0.5"
+                            Text="Telegram Desktop" />
+                        <TextBlock
+                            Margin="0,2"
+                            FontSize="13"
+                            Foreground="{DynamicResource White100}"
+                            Opacity="0.5"
+                            Text="Version 4.15 - About" />
+                    </StackPanel>
                 </Grid>
-            </Grid>
-            <Grid Grid.Column="1">
-                <Border
-                    Grid.Column="2"
-                    Margin="0,0,0,20"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Background="{DynamicResource Black300}"
-                    CornerRadius="15">
-                    <TextBlock
-                        Margin="10,5"
+            </materialDesign:DrawerHost.LeftDrawerContent>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="385" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0" Background="{DynamicResource Black200}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="46" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Margin="10,8,10,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Button
+                            Width="auto"
+                            Margin="0"
+                            Padding="0"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}"
+                            CommandParameter="{x:Static Dock.Left}">
+                            <materialIcons:MaterialIcon
+                                Height="25"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="{DynamicResource White200}"
+                                Kind="Menu" />
+                        </Button>
+                        <Border
+                            Grid.Column="1"
+                            Margin="2"
+                            Padding="3"
+                            Background="{DynamicResource Black300}"
+                            BorderThickness="0"
+                            CornerRadius="20">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="60" />
+                                </Grid.ColumnDefinitions>
+                                <TextBox
+                                    x:Name="Search"
+                                    Grid.Column="0"
+                                    VerticalAlignment="Center"
+                                    BorderBrush="Transparent"
+                                    BorderThickness="0"
+                                    Foreground="{DynamicResource White200}"
+                                    Style="{StaticResource Search}"
+                                    Text="Search" />
+                            </Grid>
+                        </Border>
+                    </Grid>
+                    <Grid Grid.Row="2" Margin="10,8,0,8">
+                        <ListView
+                            x:Name="Menu"
+                            Grid.Row="1"
+                            ItemContainerStyle="{StaticResource Menu}"
+                            ItemsSource="{Binding Messages}"
+                            SelectedValuePath="ViewPath">
+                            <ListView.Resources>
+                                <Style BasedOn="{StaticResource MaterialDesignScrollBarMinimal}" TargetType="ScrollBar" />
+                            </ListView.Resources>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectionChanged">
+                                    <i:InvokeCommandAction Command="{Binding SelectCommand}" CommandParameter="{Binding ElementName=Menu, Path=SelectedItem}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid x:Name="Item" Style="{StaticResource Item}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="45" />
+                                            <ColumnDefinition Width="270" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Ellipse
+                                            Width="43"
+                                            Height="43"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center">
+                                            <Ellipse.Fill>
+                                                <ImageBrush ImageSource="{Binding UserPicture}" Stretch="Fill" />
+                                            </Ellipse.Fill>
+                                        </Ellipse>
+                                        <StackPanel Grid.Column="1">
+                                            <TextBlock
+                                                Margin="10,0,0,0"
+                                                VerticalAlignment="Center"
+                                                FontFamily="Fonts/Roboto-Regular.ttf #Roboto Regular"
+                                                FontSize="13"
+                                                FontWeight="DemiBold"
+                                                Foreground="{DynamicResource White100}"
+                                                Text="{Binding Name}" />
+                                            <TextBlock
+                                                Margin="10,8,0,0"
+                                                VerticalAlignment="Center"
+                                                FontFamily="Fonts/Roboto-Regular.ttf #Roboto Regular"
+                                                FontSize="12"
+                                                FontWeight="Normal"
+                                                Foreground="{DynamicResource White200}"
+                                                Text="{Binding Content}" />
+
+                                        </StackPanel>
+                                        <Border
+                                            Grid.Column="2"
+                                            Width="20"
+                                            Margin="5,18,10,8"
+                                            Background="{DynamicResource Black400}"
+                                            CornerRadius="15">
+                                            <TextBlock
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                FontSize="10"
+                                                Foreground="{DynamicResource White100}"
+                                                Text="2" />
+                                        </Border>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Border
+                        Grid.Column="2"
+                        Margin="0,0,0,20"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                        FontSize="14"
-                        Foreground="{DynamicResource White100}"
-                        Text="Select a chat to start messaging" />
-                </Border>
-                <ContentControl prism:RegionManager.RegionContext="{Binding}" prism:RegionManager.RegionName="ConversationRegion" />
+                        Background="{DynamicResource Black300}"
+                        CornerRadius="15">
+                        <TextBlock
+                            Margin="10,5"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="14"
+                            Foreground="{DynamicResource White100}"
+                            Text="Select a chat to start messaging" />
+                    </Border>
+                    <ContentControl prism:RegionManager.RegionContext="{Binding}" prism:RegionManager.RegionName="ConversationRegion" />
+                </Grid>
             </Grid>
-        </Grid>
+
+        </materialDesign:DrawerHost>
     </Grid>
 </adonis:AdonisWindow>

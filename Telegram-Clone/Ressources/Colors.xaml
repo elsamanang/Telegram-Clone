@@ -7,6 +7,7 @@
     <Color x:Key="AccentBlackOne">#17212b</Color>
     <Color x:Key="AccentBlueTwo">#43acd9</Color>
     <Color x:Key="AccentBlackTwo">#262d37</Color>
+    <Color x:Key="AccentBlackFour">#1b1f23</Color>
     <Color x:Key="AccentBlackThree">#3e546a</Color>
     <Color x:Key="White">#ffffff</Color>
     <Color x:Key="WhiteDark">#969699</Color>
@@ -22,6 +23,7 @@
     <SolidColorBrush x:Key="Blue300" Color="{StaticResource AccentBlueTwo}" />
     <SolidColorBrush x:Key="Black300" Color="{StaticResource AccentBlackTwo}" />
     <SolidColorBrush x:Key="Black400" Color="{StaticResource AccentBlackThree}" />
+    <SolidColorBrush x:Key="Black500" Color="{StaticResource AccentBlackFour}" />
     <!--#endregion-->
 
 </ResourceDictionary>
