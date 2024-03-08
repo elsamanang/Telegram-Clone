@@ -54,14 +54,21 @@
                         VerticalAlignment="Center"
                         Foreground="{DynamicResource White200}"
                         Kind="Search" />
-                    <materialIcons:MaterialIcon
+                    <Button
                         Grid.Column="1"
-                        Height="22"
+                        Width="auto"
                         Margin="8,6"
+                        Padding="0"
                         HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        Foreground="{DynamicResource White200}"
-                        Kind="Phone" />
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Command="{Binding CallCommand}">
+                        <materialIcons:MaterialIcon
+                            Height="22"
+                            VerticalAlignment="Center"
+                            Foreground="{DynamicResource White200}"
+                            Kind="Phone" />
+                    </Button>
                     <materialIcons:MaterialIcon
                         Grid.Column="1"
                         Height="22"
@@ -89,8 +96,7 @@
                         PopupHorizontalOffset="-10"
                         PopupUniformCornerRadius="5"
                         PopupVerticalOffset="5"
-                        SnapsToDevicePixels="True"
-                        Style="{Binding ElementName=StyleComboBox, Path=SelectedItem, Converter={StaticResource ComboBoxItemToStyleConverter}}">
+                        SnapsToDevicePixels="True">
                         <StackPanel Width="200" Background="{DynamicResource Black200}">
                             <Border
                                 x:Name="Border"
