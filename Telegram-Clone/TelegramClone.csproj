@@ -17,9 +17,6 @@
     <PackageReference Include="Prism.DryIoc" Version="8.1.97" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Components\" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Utils\Images\p1.png" />
   </ItemGroup>
 </Project>
