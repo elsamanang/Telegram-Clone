@@ -278,9 +278,10 @@
                             Grid.Row="1"
                             ItemContainerStyle="{StaticResource Menu}"
                             ItemsSource="{Binding Messages}"
-                            ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                            ScrollViewer.VerticalScrollBarVisibility="Auto"
                             SelectedValuePath="ViewPath">
+                            <ListView.Resources>
+                                <Style BasedOn="{StaticResource MaterialDesignScrollBarMinimal}" TargetType="ScrollBar" />
+                            </ListView.Resources>
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="SelectionChanged">
                                     <i:InvokeCommandAction Command="{Binding SelectCommand}" CommandParameter="{Binding ElementName=Menu, Path=SelectedItem}" />

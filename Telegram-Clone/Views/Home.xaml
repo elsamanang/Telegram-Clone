@@ -169,13 +169,12 @@
             </Grid>
             <Grid Grid.Row="1" Background="{DynamicResource Black100}">
                 <Image Source="/Utils/Images/p1.png" Stretch="Fill" />
-                <ScrollViewer ScrollViewer.CanContentScroll="True">
-                    <ItemsControl
-                        Padding="0,10"
-                        ItemsSource="{Binding MessageItems}"
-                        ScrollViewer.CanContentScroll="True"
-                        ScrollViewer.IsDeferredScrollingEnabled="True"
-                        ScrollViewer.PanningMode="VerticalOnly">
+                <ScrollViewer materialDesign:ScrollBarAssist.ThumbCornerRadius="20">
+                    <ScrollViewer.Resources>
+                        <Style BasedOn="{StaticResource MaterialDesignScrollBarMinimal}" TargetType="ScrollBar" />
+                    </ScrollViewer.Resources>
+
+                    <ItemsControl Padding="0,10" ItemsSource="{Binding MessageItems}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Border
